@@ -10,8 +10,12 @@ shinyServer(function(input, output) {
   })
 
   output$plot <- renderPlot({
-    hist(data(), 
-         main=paste(input$distributionType, '(', input$nObservations, ')', sep=''))
+      if (input$distributionType=='rnorm'){
+          hist(data(), main=paste('rnorm(', input$nObservations, ',', input$mean,',', input$sd,')', sep=''))
+      }else{
+          hist(data(), main=paste('runif(', input$nObservations, ',', input$min,',', input$max,')', sep=''))
+      }
+    
   })
   
   output$summary <- renderPrint({
